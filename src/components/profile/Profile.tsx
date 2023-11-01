@@ -85,7 +85,7 @@ const Profile = () => {
 
                 {
                     isArray(user?.posts) ? user.posts?.map(post => <div
-                        className="col"
+                        className="col pointer"
                         key={post.id}
                         onClick={handleCardClick(post)}
                     >
