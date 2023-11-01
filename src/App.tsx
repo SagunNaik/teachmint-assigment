@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import './App.scss';
 import { ErrorBoundary } from './Error/ErrorBoundary';
 import Router from './Routes/Router';

@@ -43,6 +43,8 @@ export const defaultPost: Post = {
     body: ""
 }
 
+export const DAYS = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"]
+
 
 export const MOKE_TIMEZONE_DATA = [
     "Africa/Abidjan",

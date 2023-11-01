@@ -1,16 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { MOKE_TIMEZONE_DATA, MOKE_TIMEZONE_SALTE, Paths } from "../../../utility/Constants";
+import { DAYS, MOKE_TIMEZONE_DATA, MOKE_TIMEZONE_SALTE, Paths } from "../../../utility/Constants";
 import { appContext } from "../../../store/app/app-context";
 import { getAllCountries, getCurrentTime } from "../../../services/timezon.service";
 import { isArray } from "../../../utility/helper";
 import { ITimezone } from "../../../interfaces/timezone.interface";
 
+const CLIENT_TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone;
+console.log(CLIENT_TIMEZONE)
 const Navbar = () => {
 
     //****** ALL STATES HERE ********/
     const [localTimezones, setLocalTimezones] = useState<string[]>([]);
-    const [selectedLocalTimezone, setSelectedLocalTimezone] = useState<string>("select");
+    const [selectedLocalTimezone, setSelectedLocalTimezone] = useState<string>(CLIENT_TIMEZONE);
     const [localTime, setLocalTime] = useState<Date>(new Date());
     const [isPaused, setIsPaused] = useState<boolean>(false);
 
@@ -29,14 +31,9 @@ const Navbar = () => {
             if (isArray(timezones)) {
                 setLocalTimezones(timezones);
             }
-
-
             showLoader(false);
 
-
-
         } catch (error) {
-            console.warn("MOKE_TIMEZONE_DATA", MOKE_TIMEZONE_DATA)
 
             showLoader(false);
 
@@ -44,8 +41,13 @@ const Navbar = () => {
             setLocalTimezones(MOKE_TIMEZONE_DATA)
 
         }
+    }
 
-
+    //Get Time 
+    const updateTime = () => {
+        const newDate = new Date(localTime);
+        newDate.setSeconds(newDate.getSeconds() + 1)
+        setLocalTime(newDate);
     }
 
     const handleChange = (e: any) => {
@@ -69,24 +71,34 @@ const Navbar = () => {
                     setLocalTime(new Date(time.datetime));
                 }
             } catch (error) {
-                console.warn("MOKE_TIMEZONE_SALTE", MOKE_TIMEZONE_SALTE)
 
+                //kept for testing purpose only
                 setLocalTime(new Date(MOKE_TIMEZONE_SALTE.datetime));
             }
 
 
         }
         if (selectedLocalTimezone !== "") {
-            console.warn("selectedLocalTimezone", selectedLocalTimezone)
             fetch();
         }
     }, [selectedLocalTimezone]);
 
     useEffect(() => {
         onInit();
+        // eslint-disable-next-line
     }, []);
 
-    return <div className=" row navbar-light bg-light m-2">
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (!isPaused) {
+                updateTime()
+            }
+        }, 1000);
+
+        return () => clearInterval(interval);
+    });
+
+    return <div className=" row navbar-light bg-light m-2 navbar">
         <div className="col-2">
             <NavLink className="btn btn-primary btn-sm " to={Paths.USERS}><i className="bi bi-arrow-left px-1" />Back</NavLink>
         </div>
@@ -98,18 +110,23 @@ const Navbar = () => {
                     onChange={handleChange}
                     className="form-select form-select-sm">
                     {isArray(localTimezones) ? localTimezones.map(timezone => <option
+                        selected={timezone === selectedLocalTimezone}
                         value={timezone}
                         key={timezone}
                         className="dropdown-item"
                     >{timezone}</option>)
                         : <></>
+
                     }
                 </select>
             </div>
             <div className="col-1"></div>
 
-            <div className="col-3 text-align-center bg-dark">
-                <span className="text-white">{localTime.toLocaleTimeString()}</span>
+            <div className="col-3 text-align-center bg-dark rounded-5">
+                <div className="d-inline-grid font-monospace small">
+                    <span className="text-white font-small">{`${localTime.toLocaleDateString()} ${DAYS[localTime.getDay()]}`}</span>
+                    <span className="text-white font-small">{localTime.toLocaleTimeString()}</span>
+                </div>
             </div>
             <div className="col-2 text-align-end">
                 <button
