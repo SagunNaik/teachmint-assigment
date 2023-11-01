@@ -209,6 +209,7 @@ export const MOKE_TIMEZONE_DATA = [
     "Asia/Chita",
     "Asia/Choibalsan",
     "Asia/Colombo",
+    "Asia/Calcutta",
     "Asia/Damascus",
     "Asia/Dhaka",
     "Asia/Dili",

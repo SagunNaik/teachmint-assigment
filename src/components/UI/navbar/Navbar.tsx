@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { DAYS, MOKE_TIMEZONE_DATA, MOKE_TIMEZONE_SALTE, Paths } from "../../../utility/Constants";
+import { DAYS, MOKE_TIMEZONE_DATA, Paths } from "../../../utility/Constants";
 import { appContext } from "../../../store/app/app-context";
 import { getAllCountries, getCurrentTime } from "../../../services/timezon.service";
 import { isArray } from "../../../utility/helper";
 import { ITimezone } from "../../../interfaces/timezone.interface";
 
 const CLIENT_TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone;
-console.log(CLIENT_TIMEZONE)
 const Navbar = () => {
 
     //****** ALL STATES HERE ********/
@@ -72,8 +71,6 @@ const Navbar = () => {
                 }
             } catch (error) {
 
-                //kept for testing purpose only
-                setLocalTime(new Date(MOKE_TIMEZONE_SALTE.datetime));
             }
 
 
@@ -107,10 +104,10 @@ const Navbar = () => {
             <div className="col-6">
                 <select
                     value={selectedLocalTimezone}
+                    defaultValue={selectedLocalTimezone}
                     onChange={handleChange}
                     className="form-select form-select-sm">
                     {isArray(localTimezones) ? localTimezones.map(timezone => <option
-                        selected={timezone === selectedLocalTimezone}
                         value={timezone}
                         key={timezone}
                         className="dropdown-item"
