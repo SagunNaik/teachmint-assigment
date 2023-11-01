@@ -13,7 +13,6 @@ import { Post } from "../../interfaces/post.interface";
 const Profile = () => {
 
     //****** ALL STATES HERE ********/
-    // const [posts, setPosts] = useState<Post[]>([]);
     const [selectedPost, setSelectedPost] = useState<Post>(defaultPost);
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
@@ -37,17 +36,10 @@ const Profile = () => {
                 navigate(Paths.USERS, { replace: true });
             }
 
-            // const allPost: Post[] = await getPostByUser(userId) || [];
-
-
-            //isArray(allPost) ? setPosts(allPost) : setPosts([]);
-
-
             showLoader(false);
         } catch (error) {
             showLoader(false);
         }
-
 
     }
 
@@ -66,6 +58,7 @@ const Profile = () => {
 
     useEffect(() => {
         onInit();
+        // eslint-disable-next-line
     }, []);
 
     return !loader && user.id !== 0 ? <>
@@ -109,7 +102,7 @@ const Profile = () => {
             <div className="card border-0">
                 <button type="button" className="btn-close end-0 position-absolute" onClick={handleOnModalClose}></button>
                 <div className="card-body">
-                    <h5 className="card-title overflow-auto max-vh-50">{selectedPost.title}</h5>
+                    <h5 className="card-title">{selectedPost.title}</h5>
                     <p className="card-text overflow-auto max-vh-75">{selectedPost.body}</p>
                 </div>
             </div>

@@ -66,6 +66,7 @@ const Directory = () => {
 
     useEffect(() => {
         onInit();
+        // eslint-disable-next-line
     }, []);
 
     return !loader ? <div className="p-2 ">
