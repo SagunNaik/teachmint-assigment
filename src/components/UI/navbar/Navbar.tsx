@@ -101,7 +101,7 @@ const Navbar = () => {
         </div>
 
         <div className="col-10 d-flex  ">
-            <div className="col-6">
+            <div className="col-6 d-flex">
                 <select
                     value={selectedLocalTimezone}
                     defaultValue={selectedLocalTimezone}
@@ -117,9 +117,9 @@ const Navbar = () => {
                     }
                 </select>
             </div>
-            <div className="col-1"></div>
+            <div className="d-sm-none d-md-flex col-md-1  "></div>
 
-            <div className="col-3 text-align-center bg-dark rounded-5">
+            <div className="col-3 text-align-center bg-dark rounded-4">
                 <div className="d-inline-grid font-monospace small">
                     <span className="text-white font-small">{`${localTime.toLocaleDateString()} ${DAYS[localTime.getDay()]}`}</span>
                     <span className="text-white font-small">{localTime.toLocaleTimeString()}</span>
