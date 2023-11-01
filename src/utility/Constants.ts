@@ -1,7 +1,7 @@
 import { Post } from "../interfaces/post.interface";
 
 export const API_ROUTES = {
-    TIMEZONE: "http://worldtimeapi.org/api/timezone",
+    TIMEZONE: "https://worldtimeapi.org/api/timezone",
     USERS: "https://jsonplaceholder.typicode.com/users",
     POSTS: "https://jsonplaceholder.typicode.com/posts",
 }
