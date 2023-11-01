@@ -1,9 +1,9 @@
 import { API_METHOD, HEADERS } from "../utility/Constants"
 
 
-export const getData = (url: string, headers = {}) => {
+export const getData = (url: string, headers = {}, options = {}) => {
     return fetch(url, {
-
+        ...options,
         method: API_METHOD.GET,
         headers: {
             ...HEADERS,
