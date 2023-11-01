@@ -97,7 +97,7 @@ const Navbar = () => {
 
     return <div className=" row navbar-light bg-light m-2 navbar">
         <div className="col-2">
-            <NavLink className="btn btn-primary btn-sm " to={Paths.USERS}><i className="bi bi-arrow-left px-1" />Back</NavLink>
+            <NavLink className="btn btn-primary btn-sm " to={Paths.USERS} replace={true}><i className="bi bi-arrow-left px-1" />Back</NavLink>
         </div>
 
         <div className="col-10 d-flex  ">
